@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Athletes</title>
+</head>
+<body>
+
+    {% csrf_token %}
+    {% for athlete in athlete_list.all %}
+
+        <img src="{{ athlete.picture.url }}" width="240">
+        <h2>
+            {{athlete.name}}
+            <br>
+            {{athlete.gender}}
+            <br>
+            Born: {{athlete.date_of_birth}}
+            <br>
+            Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in
+            <br>
+            Weight: {{athlete.weight}}
+            <br>
+            Club: {{athlete.club}}
+            <br>
+            Team: {{athlete.team}}
+            <br>
+            Gold: {{athlete.gold}}
+            <br>
+            Silver: {{athlete.silver}}
+            <br>
+            Bronze: {{athlete.bronze}}
+            <br>
+        </h2>
+        <br>
+
+    {% endfor %}
+
+</body>
+</html>
