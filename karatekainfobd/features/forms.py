@@ -15,13 +15,5 @@ class AthleteForm(forms.ModelForm):
                     'placeholder': 'Select a date',
                     'type': 'date',
                 }
-
-
             ),
         }
-        # fields = [
-        #     'name',
-        #     'gender',
-        #     'date_of_birth',
-        #     'feet_height'
-        #  ]

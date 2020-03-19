@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Athlete
 from .forms import AthleteForm
@@ -18,7 +18,17 @@ def show_all_athletes_page(request):
 def enter_athlete_page(request):
     context = {}
 
-    athlete_form = AthleteForm()
-    context['athlete_form'] = athlete_form
+
+    if request.method == 'POST':
+        athlete_form = AthleteForm(request.POST, request.FILES)
+
+        if athlete_form.is_valid():
+            athlete_form.save()
+            return redirect('enter_athlete_page')
+
+        context['athlete_form'] = athlete_form
+    else:
+        athlete_form = AthleteForm()
+        context['athlete_form'] = athlete_form
 
     return render(request, 'features/enter_athlete_page.html', context=context)
