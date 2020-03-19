@@ -7,8 +7,7 @@
 <body>
 
     {% csrf_token %}
-    {% for athlete in athlete_list.all %}
-
+    {% for athlete in athlete_page_obj %}
         <img src="{{ athlete.picture.url }}" width="240">
         <h2>
             {{athlete.name}}
@@ -33,8 +32,25 @@
             <br>
         </h2>
         <br>
-
     {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if athlete_page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ athlete_page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ athlete_page_obj.number }} of {{ athlete_page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if athlete_page_obj.has_next %}
+                <a href="?page={{ athlete_page_obj.next_page_number }}">next</a>
+                <a href="?page={{ athlete_page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 </body>
 </html>

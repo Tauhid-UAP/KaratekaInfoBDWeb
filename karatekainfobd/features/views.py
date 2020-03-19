@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 
 from .models import Athlete
 from .forms import AthleteForm
@@ -6,12 +7,15 @@ from .forms import AthleteForm
 # Create your views here.
 
 def show_all_athletes_page(request):
+    context = {}
     athlete_list = Athlete.objects.all()
-    context = {
+    context['athlete_list'] = athlete_list
 
-        'athlete_list' : athlete_list
+    paginated_athlete_list = Paginator(athlete_list, 4)
+    page_number = request.GET.get('page')
+    athlete_page_obj = paginated_athlete_list.get_page(page_number)
 
-    }
+    context['athlete_page_obj'] = athlete_page_obj
 
     return render(request, 'features/show_all_athletes_page.html', context)
 
