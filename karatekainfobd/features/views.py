@@ -4,16 +4,24 @@ from django.core.paginator import Paginator
 from .models import Athlete
 from .forms import AthleteForm
 
+from .models import get_all_male_individual_kata_strings, get_all_female_individual_kata_strings, get_all_male_team_kata_strings, get_all_female_team_kata_strings, get_all_male_individual_kumite_strings, get_all_female_individual_kumite_strings, get_all_male_team_kumite_strings, get_all_female_team_kumite_strings
+
+from .filters import AthleteFilter
+
+import json
+
 # Create your views here.
 
 def show_all_athletes_page(request):
     context = {}
     athlete_list = Athlete.objects.all()
-    context['athlete_list'] = athlete_list
+    athlete_filter = AthleteFilter(request.GET, queryset=athlete_list)
+    # context['athlete_list'] = athlete_list
+    context['athlete_filter'] = athlete_filter
 
-    paginated_athlete_list = Paginator(athlete_list, 4)
+    paginated_athlete_filter = Paginator(athlete_filter.qs, 4)
     page_number = request.GET.get('page')
-    athlete_page_obj = paginated_athlete_list.get_page(page_number)
+    athlete_page_obj = paginated_athlete_filter.get_page(page_number)
 
     context['athlete_page_obj'] = athlete_page_obj
 
@@ -34,5 +42,41 @@ def enter_athlete_page(request):
     else:
         athlete_form = AthleteForm()
         context['athlete_form'] = athlete_form
+
+    male_individual_kata_strings = get_all_male_individual_kata_strings()
+    female_individual_kata_strings = get_all_female_individual_kata_strings()
+    male_team_kata_strings = get_all_male_team_kata_strings()
+    female_team_kata_strings = get_all_female_team_kata_strings()
+    male_individual_kumite_strings = get_all_male_individual_kumite_strings()
+    female_individual_kumite_strings = get_all_female_individual_kumite_strings()
+    male_team_kumite_strings = get_all_male_team_kumite_strings()
+    female_team_kumite_strings = get_all_female_team_kumite_strings()
+
+    json_male_individual_kata_strings = json.dumps(male_individual_kata_strings)
+    json_female_individual_kata_strings = json.dumps(female_individual_kata_strings)
+    json_male_team_kata_strings = json.dumps(male_team_kata_strings)
+    json_female_team_kata_strings = json.dumps(female_team_kata_strings)
+    json_male_individual_kumite_strings = json.dumps(male_individual_kumite_strings)
+    json_female_individual_kumite_strings = json.dumps(female_individual_kumite_strings)
+    json_male_team_kumite_strings = json.dumps(male_team_kumite_strings)
+    json_female_team_kumite_strings = json.dumps(female_team_kumite_strings)
+
+    print(json_male_individual_kata_strings)
+    print(json_female_individual_kata_strings)
+    print(json_male_team_kata_strings)
+    print(json_female_team_kata_strings)
+    print(json_male_individual_kumite_strings)
+    print(json_female_individual_kumite_strings)
+    print(json_male_team_kumite_strings)
+    print(json_female_team_kumite_strings)
+
+    context['male_individual_kata_strings'] = json_male_individual_kata_strings
+    context['female_individual_kata_strings'] = json_female_individual_kata_strings
+    context['male_team_kata_strings'] = json_male_team_kata_strings
+    context['female_team_kata_strings'] = json_female_team_kata_strings
+    context['male_individual_kumite_strings'] = json_male_individual_kumite_strings
+    context['female_individual_kumite_strings'] = json_female_individual_kumite_strings
+    context['male_team_kumite_strings'] = json_male_team_kumite_strings
+    context['female_team_kumite_strings'] = json_female_team_kumite_strings
 
     return render(request, 'features/enter_athlete_page.html', context=context)

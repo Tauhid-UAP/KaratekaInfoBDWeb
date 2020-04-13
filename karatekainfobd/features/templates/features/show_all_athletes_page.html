@@ -1,56 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All Athletes</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    {% csrf_token %}
-    {% for athlete in athlete_page_obj %}
-        <img src="{{ athlete.picture.url }}" width="240">
-        <h2>
-            {{athlete.name}}
-            <br>
-            {{athlete.gender}}
-            <br>
-            Born: {{athlete.date_of_birth}}
-            <br>
-            Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in
-            <br>
-            Weight: {{athlete.weight}}
-            <br>
-            Club: {{athlete.club}}
-            <br>
-            Team: {{athlete.team}}
-            <br>
-            Gold: {{athlete.gold}}
-            <br>
-            Silver: {{athlete.silver}}
-            <br>
-            Bronze: {{athlete.bronze}}
-            <br>
-        </h2>
-        <br>
-    {% endfor %}
+{% load features_extras %}
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if athlete_page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ athlete_page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+{% load widget_tweaks %}
 
-            <span class="current">
-                Page {{ athlete_page_obj.number }} of {{ athlete_page_obj.paginator.num_pages }}.
-            </span>
+{% block main_block %}
 
-            {% if athlete_page_obj.has_next %}
-                <a href="?page={{ athlete_page_obj.next_page_number }}">next</a>
-                <a href="?page={{ athlete_page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+<form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.name.label_tag }}
+          {% render_field athlete_filter.form.name class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.gender.label_tag }}
+          {% render_field athlete_filter.form.gender class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.weight.label_tag }}
+          {% render_field athlete_filter.form.weight class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.club.label_tag }}
+          {% render_field athlete_filter.form.club class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.team.label_tag }}
+          {% render_field athlete_filter.form.team class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.individual_kata_event.label_tag }}
+          {% render_field athlete_filter.form.individual_kata_event class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.individual_kumite_event.label_tag }}
+          {% render_field athlete_filter.form.individual_kumite_event class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.team_kata_event.label_tag }}
+          {% render_field athlete_filter.form.team_kata_event class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ athlete_filter.form.team_kumite_event.label_tag }}
+          {% render_field athlete_filter.form.team_kumite_event class="form-control" %}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
     </div>
+  </form>
 
-</body>
-</html>
+<!--<form method="get">-->
+<!--    {% csrf_token %}-->
+<!--    {{ athlete_filter.form.as_p }}-->
+<!--    <button class="btn btn-primary" type="submit">Submit</button>-->
+<!--</form>-->
+
+{% for athlete in athlete_page_obj %}
+<div class="nav justify-content-center">
+    <div class="card" style="width: 35rem;">
+        <img src="{{ athlete.picture.url }}" class="card-img-top" width="120">
+        <div class="card-body">
+            <h2>
+                <p class="card-title">{{athlete.name}}</p>
+                <p class="font-weight-lighter">{{athlete.gender}}</p>
+                <p class="font-weight-lighter">Born: {{athlete.date_of_birth}}</p>
+                <p class="font-weight-lighter">Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in</p>
+                <p class="font-weight-lighter">Weight: {{athlete.weight}} kg</p>
+                <p class="font-weight-lighter">Club: {{athlete.club.name}}</p>
+                <p class="font-weight-lighter">Team: {{athlete.team.name}}</p>
+                <p class="font-weight-lighter">Gold: {{athlete.gold}}</p>
+                <p class="font-weight-lighter">Silver: {{athlete.silver}}</p>
+                <p class="font-weight-lighter">Bronze: {{athlete.bronze}}</p>
+            </h2>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="pagination nav justify-content-center">
+    <span class="step-links">
+        {% if athlete_page_obj.has_previous %}
+            <a href="{% relative_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+            <a href="{% relative_url athlete_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ athlete_page_obj.number }} of {{ athlete_page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if athlete_page_obj.has_next %}
+            <a href="{% relative_url athlete_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+            <a href="{% relative_url athlete_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

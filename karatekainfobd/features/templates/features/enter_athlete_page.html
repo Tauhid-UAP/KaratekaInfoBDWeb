@@ -57,6 +57,15 @@
         $("#id_team_kata_event").hide();
         $("#id_team_kumite_event").hide();
 
+        var maleIndividualKataCategories = JSON.parse('{{ male_individual_kata_strings | escapejs }}');
+        var femaleIndividualKataCategories = JSON.parse('{{ female_individual_kata_strings | escapejs }}');
+        var maleTeamKataCategories = JSON.parse('{{ male_team_kata_strings | escapejs }}');
+        var femaleTeamKataCategories = JSON.parse('{{ female_team_kata_strings | escapejs }}');
+        var maleIndividualKumiteCategories = JSON.parse('{{ male_individual_kumite_strings | escapejs }}');
+        var femaleIndividualKumiteCategories = JSON.parse('{{ female_individual_kumite_strings | escapejs }}');
+        var maleTeamKumiteCategories = JSON.parse('{{ male_team_kumite_strings | escapejs }}');
+        var femaleTeamKumiteCategories = JSON.parse('{{ female_team_kumite_strings | escapejs }}');
+
         $("#id_gender").on('change', function(){
 
             var gender = $("#id_gender").val();
@@ -71,24 +80,44 @@
                 $("#id_team_kata_event").show();
                 $("#id_team_kumite_event").show();
 
-                var maleIndividualKataCategories = ['None', 'Male Individual Kata'];
-                var maleIndividualKumiteCategories = [
-                    'None',
-                    '-50kg Male Kumite',
-                    '-55kg Male Kumite',
-                    '-60kg Male Kumite',
-                    '-67kg Male Kumite',
-                    '-75kg Male Kumite',
-                    '-84kg Male Kumite',
-                    '+84kg Male Kumite',
-                ];
-                var maleTeamKataCategories = ['None', 'Male Team Kata'];
-                var maleTeamKumiteCategories = ['None', 'Male Team Kumite'];
+
 
                 var maleIndividualKataLength = maleIndividualKataCategories.length;
                 var maleIndividualKumiteLength = maleIndividualKumiteCategories.length;
                 var maleTeamKataLength = maleTeamKataCategories.length;
                 var maleTeamKumiteLength = maleTeamKumiteCategories.length;
+
+                $('#id_individual_kata_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_individual_kumite_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_team_kata_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_team_kumite_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
 
                 var i;
                 for(i=0; i < maleIndividualKataLength; i++){
@@ -153,23 +182,44 @@
                 $("#id_team_kata_event").show();
                 $("#id_team_kumite_event").show();
 
-                var femaleIndividualKataCategories = ['None', 'Female Individual Kata'];
-                var femaleIndividualKumiteCategories = [
-                    'None',
-                    '-45kg Female Kumite',
-                    '-50kg Female Kumite',
-                    '-55kg Female Kumite',
-                    '-61kg Female Kumite',
-                    '-68kg Female Kumite',
-                    '+68kg Female Kumite',
-                ];
-                var femaleTeamKataCategories = ['None', 'Female Team Kata'];
-                var femaleTeamKumiteCategories = ['None', 'Female Team Kumite'];
+
 
                 var femaleIndividualKataLength = femaleIndividualKataCategories.length;
                 var femaleIndividualKumiteLength = femaleIndividualKumiteCategories.length;
                 var femaleTeamKataLength = femaleTeamKataCategories.length;
                 var femaleTeamKumiteLength = femaleTeamKumiteCategories.length;
+
+                $('#id_individual_kata_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_individual_kumite_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_team_kata_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
+
+                $('#id_team_kumite_event').append(
+
+                    `
+                    <option value=""></option>
+                    `
+
+                );
 
                 var i;
                 for(i=0; i < femaleIndividualKataLength; i++){
