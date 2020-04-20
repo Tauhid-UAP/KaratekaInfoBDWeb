@@ -190,20 +190,16 @@ class Athlete(models.Model):
     feet_height = models.PositiveIntegerField(default=0)
     inch_height = models.DecimalField(default=0.0, decimal_places=1, max_digits=3, validators=[MinValueValidator(Decimal(0.0))])
     weight = models.FloatField(default=0.0, help_text='Weight in kg')
-    # club = models.CharField(max_length=100, choices={
-    #     ('Arrianna Academy' , 'Arrianna Academy'),
-    #     ('Bangladesh Shitoryu Karate-do Union' , 'Bangladesh Shitoryu Karate-do Union')
-    # })
-    # team = models.CharField(max_length=100, choices={
-    #     ('Bangladesh Ansar & VDP' , 'Bangladesh Ansar & VDP'),
-    #     ('Bangladesh Army' , 'Bangladesh Army')
-    # })
     club = models.ForeignKey(Club, blank=True, null=True, on_delete=models.SET_NULL)
     team = models.ForeignKey(Team, blank=True, null=True, on_delete=models.SET_NULL)
-    individual_kata_event = models.CharField(max_length=22, choices=get_all_individual_kata_choices(), blank=True, null=True)
-    individual_kumite_event = models.CharField(max_length=22, choices=get_all_individual_kumite_choices(), blank=True, null=True)
-    team_kata_event = models.CharField(max_length=22, choices=get_all_team_kata_choices(), blank=True, null=True)
-    team_kumite_event = models.CharField(max_length=22, choices=get_all_team_kumite_choices(), blank=True, null=True)
+    individual_kata_event = models.CharField(max_length=22, choices=get_all_individual_kata_choices(), blank=True, default="")
+    individual_kata_active = models.BooleanField(default=False)
+    individual_kumite_event = models.CharField(max_length=22, choices=get_all_individual_kumite_choices(), blank=True, default="")
+    individual_kumite_active = models.BooleanField(default=False)
+    team_kata_event = models.CharField(max_length=22, choices=get_all_team_kata_choices(), blank=True, default="")
+    team_kata_active = models.BooleanField(default=False)
+    team_kumite_event = models.CharField(max_length=22, choices=get_all_team_kumite_choices(), blank=True, default="")
+    team_kumite_active = models.BooleanField(default=False)
     gold = models.PositiveIntegerField(default=5)
     silver = models.PositiveIntegerField(default=5)
     bronze = models.PositiveIntegerField(default=5)

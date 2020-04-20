@@ -12,6 +12,9 @@ import json
 
 # Create your views here.
 
+def homepage(request):
+    return render(request, 'features/homepage.html')
+
 def show_all_athletes_page(request):
     context = {}
     athlete_list = Athlete.objects.all()

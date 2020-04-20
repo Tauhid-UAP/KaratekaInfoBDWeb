@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+<div>
+    <div class="btn-group-lg text-center p-3 mb-2 bg-dark text-white" role="group" aria-label="Basic example">
+
+        <a class="btn btn-outline-light" href="{% url 'enter_athlete_page' %}" role="button">Enter Athlete Info</a>
+        <a class="btn btn-outline-light" href="{% url 'show_all_athletes_page' %}" role="button">View Athletes</a>
+
+    </div>
+</div>
+{% endblock %}
