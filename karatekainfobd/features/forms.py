@@ -16,4 +16,5 @@ class AthleteForm(forms.ModelForm):
                     'type': 'date',
                 }
             ),
+            'description': forms.Textarea,
         }

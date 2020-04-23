@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+<div class="text-center p-3 mb-2 bg-dark text-white" role="group" aria-label="Basic example">
+    {% block main_block1 %}
+    <a class="btn btn-outline-light btn-lg" href="{% url 'show_athlete_championships_page' athlete.id %}" role="button">
+        View All Championship Records of {{ athlete.name }}
+    </a>
+    {% endblock %}
+</div>
+{% block main_block2 %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm card">
+            <img src="{{ athlete.picture.url }}" class="img-fluid card-img-top" alt="Responsive image">
+            <div class="card-body">
+<!--                <p> Scroll below to view {{ athlete.name }}'s description. </p>-->
+                {% if athlete.description %}
+                    <p class="lead"> {{ athlete.description }} </p>
+                {% else %}
+                    <p> No description exists for {{ athlete.name }}. </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm">
+            <p class="card-title">{{athlete.name}}</p>
+            <p class="font-weight-lighter">{{athlete.gender}}</p>
+            <p class="font-weight-lighter">Born: {{athlete.date_of_birth}}</p>
+            <p class="font-weight-lighter">Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in</p>
+            <p class="font-weight-lighter">Weight: {{athlete.weight}} kg</p>
+            <p class="font-weight-lighter">Club: {{athlete.club.name}}</p>
+            <p class="font-weight-lighter">Team: {{athlete.team.name}}</p>
+            {% if athlete.individual_kata_event %}
+                <p class="font-weight-lighter">
+                    {{athlete.individual_kata_event}}
+                    {% if athlete.individual_kata_active %}
+                        (Active)
+                    {% else %}
+                        (Inactive)
+                    {% endif %}
+                </p>
+            {% endif %}
+            {% if athlete.individual_kumite_event %}
+                <p class="font-weight-lighter">
+                    {{athlete.individual_kumite_event}}
+                    {% if athlete.individual_kumite_active %}
+                        (Active)
+                    {% else %}
+                        (Inactive)
+                    {% endif %}
+                </p>
+            {% endif %}
+            {% if athlete.team_kata_event %}
+                <p class="font-weight-lighter">
+                    {{athlete.team_kata_event}}
+                    {% if athlete.team_kata_active %}
+                        (Active)
+                    {% else %}
+                        (Inactive)
+                    {% endif %}
+                </p>
+            {% endif %}
+            {% if athlete.team_kumite_event %}
+                <p class="font-weight-lighter">
+                    {{athlete.team_kumite_event}}
+                    {% if athlete.team_kumite_active %}
+                        (Active)
+                    {% else %}
+                        (Inactive)
+                    {% endif %}
+                </p>
+            {% endif %}
+            <p class="font-weight-lighter">Gold: {{athlete.gold}}</p>
+            <p class="font-weight-lighter">Silver: {{athlete.silver}}</p>
+            <p class="font-weight-lighter">Bronze: {{athlete.bronze}}</p>
+            <p class="font-weight-lighter">
+                {% if not athlete.active %}
+                    Retired
+                {% else %}
+                    Active
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+<!--<div class="container">-->
+<!--    <p class="lead">-->
+<!--        {{ athlete.description }}-->
+<!--    </p>-->
+<!--</div>-->
+{% endblock %}
+<!--<div class="nav justify-content-center">-->
+<!--    <div class="card" style="width: 35rem;">-->
+<!--        <img src="{{ athlete.picture.url }}" class="card-img-top" width="120">-->
+<!--        <div class="card-body">-->
+<!--            <h2>-->
+<!--                <p class="card-title">{{athlete.name}}</p>-->
+<!--                <p class="font-weight-lighter">{{athlete.gender}}</p>-->
+<!--                <p class="font-weight-lighter">Born: {{athlete.date_of_birth}}</p>-->
+<!--                <p class="font-weight-lighter">Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in</p>-->
+<!--                <p class="font-weight-lighter">Weight: {{athlete.weight}} kg</p>-->
+<!--                <p class="font-weight-lighter">Club: {{athlete.club.name}}</p>-->
+<!--                <p class="font-weight-lighter">Team: {{athlete.team.name}}</p>-->
+<!--                {% if athlete.individual_kata_event %}-->
+<!--                    <p class="font-weight-lighter">-->
+<!--                        {{athlete.individual_kata_event}}-->
+<!--                        {% if athlete.individual_kata_active %}-->
+<!--                            (Active)-->
+<!--                        {% else %}-->
+<!--                            (Inactive)-->
+<!--                        {% endif %}-->
+<!--                    </p>-->
+<!--                {% endif %}-->
+<!--                {% if athlete.individual_kumite_event %}-->
+<!--                    <p class="font-weight-lighter">-->
+<!--                        {{athlete.individual_kumite_event}}-->
+<!--                        {% if athlete.individual_kumite_active %}-->
+<!--                            (Active)-->
+<!--                        {% else %}-->
+<!--                            (Inactive)-->
+<!--                        {% endif %}-->
+<!--                    </p>-->
+<!--                {% endif %}-->
+<!--                {% if athlete.team_kata_event %}-->
+<!--                    <p class="font-weight-lighter">-->
+<!--                        {{athlete.team_kata_event}}-->
+<!--                        {% if athlete.team_kata_active %}-->
+<!--                            (Active)-->
+<!--                        {% else %}-->
+<!--                            (Inactive)-->
+<!--                        {% endif %}-->
+<!--                    </p>-->
+<!--                {% endif %}-->
+<!--                {% if athlete.team_kumite_event %}-->
+<!--                    <p class="font-weight-lighter">-->
+<!--                        {{athlete.team_kumite_event}}-->
+<!--                        {% if athlete.team_kumite_active %}-->
+<!--                            (Active)-->
+<!--                        {% else %}-->
+<!--                            (Inactive)-->
+<!--                        {% endif %}-->
+<!--                    </p>-->
+<!--                {% endif %}-->
+<!--                <p class="font-weight-lighter">Gold: {{athlete.gold}}</p>-->
+<!--                <p class="font-weight-lighter">Silver: {{athlete.silver}}</p>-->
+<!--                <p class="font-weight-lighter">Bronze: {{athlete.bronze}}</p>-->
+<!--            </h2>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+{% endblock %}

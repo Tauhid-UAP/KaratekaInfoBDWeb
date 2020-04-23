@@ -1,0 +1,37 @@
+{% extends 'features/show_athlete_page.html' %}
+
+{% block main_block1 %}
+<h3> Standings of {{ athlete.name }} in {{ championship.title }}</h3>
+{% endblock %}
+
+{% block main_block2 %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm card">
+            <img src="{{ athlete.picture.url }}" class="img-fluid card-img-top" alt="Responsive image">
+            <div class="card-body">
+<!--                <p> Scroll below to view {{ athlete.name }}'s description. </p>-->
+                {% if athlete.description %}
+                    <p class="lead"> {{ athlete.description }} </p>
+                {% else %}
+                    <p> No description exists for {{ athlete.name }}. </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm">
+            {% for championshipstanding in championshipstandings %}
+                <p class="lead font-weight-lighter">
+                    {{ championshipstanding.category }}:
+                    {% if championshipstanding.position == 1 %}
+                        Gold medal (1st position)
+                    {% elif championshipstanding.position == 2 %}
+                        Silver medal (2nd position)
+                    {% elif championshipstanding.position == 3 %}
+                        Bronze medal (3rd position)
+                    {% endif %}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -20,4 +20,5 @@ class AthleteFilter(django_filters.FilterSet):
             'team_kata_active',
             'team_kumite_event',
             'team_kumite_active',
+            'active',
         ]

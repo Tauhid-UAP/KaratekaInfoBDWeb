@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+
+{% for championship in championship_page_obj %}
+<div class="nav justify-content-center">
+    <div class="card" style="width: 35rem;">
+        {% if championship.logo_picture %}
+        <a>
+            <img src="{{ championship.logo_picture.url }}" class="card-img-top" width="120">
+        </a>
+        {% endif %}
+        <div class="card-body">
+            <h2>
+                <p class="lead font-weight-lighter">
+                    <em> {{ championship.title }} </em>
+                    <a href="{% url 'show_championshipstandings_page' championship.id %}">View standings</a>
+                </p>
+                <p class="font-weight-lighter">{{championship.start_date}}</p>
+                <p class="font-weight-lighter">{{championship.description}}</p>
+            </h2>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="pagination nav justify-content-center">
+    <span class="step-links">
+        {% if athlete_page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page=championship_page_obj.previous_page_number">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ championship_page_obj.number }} of {{ championship_page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if athlete_page_obj.has_next %}
+            <a href="?page={{ championship_page_obj.next_page_number }}">next</a>
+            <a href="?page={{ championship_page_obj.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}

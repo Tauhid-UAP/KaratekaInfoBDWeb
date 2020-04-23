@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
 
-from .models import Athlete
+from .models import Athlete, Championship, ChampionshipStanding
 from .forms import AthleteForm
 
 from .models import get_all_male_individual_kata_strings, get_all_female_individual_kata_strings, get_all_male_team_kata_strings, get_all_female_team_kata_strings, get_all_male_individual_kumite_strings, get_all_female_individual_kumite_strings, get_all_male_team_kumite_strings, get_all_female_team_kumite_strings
@@ -17,7 +17,7 @@ def homepage(request):
 
 def show_all_athletes_page(request):
     context = {}
-    athlete_list = Athlete.objects.all()
+    athlete_list = Athlete.objects.all().order_by('name')
     athlete_filter = AthleteFilter(request.GET, queryset=athlete_list)
     # context['athlete_list'] = athlete_list
     context['athlete_filter'] = athlete_filter
@@ -28,7 +28,7 @@ def show_all_athletes_page(request):
 
     context['athlete_page_obj'] = athlete_page_obj
 
-    return render(request, 'features/show_all_athletes_page.html', context)
+    return render(request, 'features/show_all_athletes_page.html', context=context)
 
 def enter_athlete_page(request):
     context = {}
@@ -83,3 +83,78 @@ def enter_athlete_page(request):
     context['female_team_kumite_strings'] = json_female_team_kumite_strings
 
     return render(request, 'features/enter_athlete_page.html', context=context)
+
+def show_athlete_page(request, athlete_id):
+    context = {}
+
+    athlete = Athlete.objects.get(id=athlete_id)
+
+    context['athlete'] = athlete
+
+    return render(request, 'features/show_athlete_page.html', context=context)
+
+def show_athlete_championships_page(request, athlete_id):
+    context = {}
+
+    athlete = Athlete.objects.get(id=athlete_id)
+    championshipstandings = athlete.championshipstanding_set.all()
+
+    # from championshipstandings
+    # get all the championships
+    # that the athlete
+    # got medals in
+    championships = []
+    # dictionary to check
+    # if current championship
+    # has already been added
+    already_added = {}
+    for championshipstanding in championshipstandings:
+        championship = championshipstanding.championship
+
+        # statement will be false
+        # if None
+        if already_added.get(championship, None) is None:
+            championships.append(championship)
+            already_added[championship] = True
+
+    context['athlete'] = athlete
+    context['championships'] = championships
+
+    return render(request, 'features/show_athlete_championships_page.html', context=context)
+
+def show_athlete_championshipstandings_page(request, athlete_id, championship_id):
+    context = {}
+
+    athlete = Athlete.objects.get(id=athlete_id)
+    championship = Championship.objects.get(id=championship_id)
+    championshipstandings = ChampionshipStanding.objects.filter(athlete=athlete, championship=championship)
+
+    context['athlete'] = athlete
+    context['championship'] = championship
+    context['championshipstandings'] = championshipstandings
+
+    return render(request, 'features/show_athlete_championshipstandings_page.html', context=context)
+
+def show_all_championships_page(request):
+    context = {}
+
+    championships = Championship.objects.all()
+
+    paginated_championships = Paginator(championships, 4)
+    page_number = request.GET.get('page')
+    championship_page_obj = paginated_championships.get_page(page_number)
+
+    context['championship_page_obj'] = championship_page_obj
+
+    return render(request, 'features/show_all_championships_page.html', context=context)
+
+def show_championshipstandings_page(request, championship_id):
+    context = {}
+
+    championship = Championship.objects.get(id=championship_id)
+    championshipstandings = ChampionshipStanding.objects.filter(championship=championship)
+
+    context['championship'] = championship
+    context['championshipstandings'] = championshipstandings
+
+    return render(request, 'features/show_championshipstandings_page.html', context=context)

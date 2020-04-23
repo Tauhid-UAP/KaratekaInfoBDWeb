@@ -1,0 +1,27 @@
+{% extends 'features/show_athlete_page.html' %}
+
+{% block main_block1 %}
+<h3> Standings in {{ championship.title }} </h3>
+{% endblock %}
+
+{% block main_block2 %}
+{% for championshipstanding in championshipstandings %}
+    <div class="container">
+        <h2>
+            <p>
+                <a href="{% url 'show_athlete_page' championshipstanding.athlete.id %}"> {{ championshipstanding.athlete.name }} </a>
+            </p>
+            <p class="font-weight-lighter">
+                {{ championshipstanding.category }}:
+                {% if championshipstanding.position == 1 %}
+                    Gold medal (1st position)
+                {% elif championshipstanding.position == 2 %}
+                    Silver medal (2nd position)
+                {% elif championshipstanding.position == 3 %}
+                    Bronze medal (3rd position)
+                {% endif %}
+            </p>
+        </h2>
+    </div>
+{% endfor %}
+{% endblock %}

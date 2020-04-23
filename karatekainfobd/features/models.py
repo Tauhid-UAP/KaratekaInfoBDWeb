@@ -6,11 +6,13 @@ from decimal import Decimal
 
 # Create your models here.
 
+# gender choices for gender field of Athlete
 GENDER_CHOICES = {
     ('Male', 'Male'),
     ('Female', 'Female'),
 }
 
+# category choices for category field of Athlete
 MALE_INDIVIDUAL_KATA = 'Male Individual Kata'
 MALE_TEAM_KATA = 'Male Team Kata'
 MALE_KUMITE_EVENT_0 = '-50kg Male Kumite'
@@ -31,6 +33,17 @@ FEMALE_KUMITE_EVENT_3 = '-61kg Female Kumite'
 FEMALE_KUMITE_EVENT_4 = '-68kg Female Kumite'
 FEMALE_KUMITE_EVENT_5 = '+68kg Female Kumite'
 FEMALE_TEAM_KUMITE = 'Female Team Kumite'
+
+# constants for position field of ChampionshipStanding
+# position constants
+FIRST_POSITION = 1
+SECOND_POSITION = 2
+THIRD_POSITION = 3
+
+# medal constants
+GOLD = 'Gold'
+SILVER = 'Silver'
+BRONZE = 'Bronze'
 
 # The following lists are to be passed to the HTML as JSON strings
 MALE_INDIVIDUAL_KATA_STRINGS = [MALE_INDIVIDUAL_KATA]
@@ -108,6 +121,13 @@ FEMALE_TEAM_KUMITE_CHOICES = [
     (FEMALE_TEAM_KUMITE, FEMALE_TEAM_KUMITE),
 ]
 
+# position choices for ChampionshipStanding
+POSITION_CHOICES = [
+    (FIRST_POSITION, GOLD),
+    (SECOND_POSITION, SILVER),
+    (THIRD_POSITION, BRONZE),
+]
+
 # The following methods retrieve choices for the Athlete model
 def get_all_individual_kata_choices():
     all_individual_kata_choices = []
@@ -139,6 +159,15 @@ def get_all_team_kumite_choices():
 
     return all_team_kumite_choices
 
+def get_all_category_choices():
+    all_category_choices = []
+    all_category_choices+=get_all_individual_kata_choices()
+    all_category_choices += get_all_individual_kumite_choices()
+    all_category_choices += get_all_team_kata_choices()
+    all_category_choices += get_all_team_kumite_choices()
+
+    return all_category_choices
+
 # The following methods are to be used to retrieve the string constants
 # To be converted to JSON strings
 def get_all_male_individual_kata_strings():
@@ -165,12 +194,16 @@ def get_all_male_team_kumite_strings():
 def get_all_female_team_kumite_strings():
     return FEMALE_TEAM_KUMITE_STRINGS
 
-# Model to represent athletes
+# method to get all choices
+# of the position field of ChampionshipStanding
+def get_all_position_choices():
+    return POSITION_CHOICES
 
 class Club(models.Model):
     name = models.CharField(max_length=50, unique=True)
     founded = models.DateField(blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, default='')
+    logo_picture = models.ImageField(upload_to='club_logos', blank=True)
 
     def __str__(self):
         return self.name
@@ -178,7 +211,8 @@ class Club(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=50, unique=True)
     founded = models.DateField(blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, default='')
+    logo_picture = models.ImageField(upload_to='team_logos', blank=True)
 
     def __str__(self):
         return self.name
@@ -203,4 +237,27 @@ class Athlete(models.Model):
     gold = models.PositiveIntegerField(default=5)
     silver = models.PositiveIntegerField(default=5)
     bronze = models.PositiveIntegerField(default=5)
+    description = models.CharField(max_length=100, blank=True, default='')
     picture = models.ImageField(upload_to='athlete_images', blank=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+class Championship(models.Model):
+    title = models.CharField(max_length=100)
+    start_date = models.DateField()
+    description = models.CharField(max_length=100)
+    logo_picture = models.ImageField(upload_to='championship_logos', blank=True)
+
+    def __str__(self):
+        return self.title
+
+class ChampionshipStanding(models.Model):
+    championship = models.ForeignKey(Championship, on_delete=models.CASCADE)
+    athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE)
+    category = models.CharField(max_length=22, choices=get_all_category_choices(), default='')
+    position = models.IntegerField(choices=get_all_position_choices())
+
+    def __str__(self):
+        return self.championship.__str__()+' Position '+str(self.position)
