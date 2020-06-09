@@ -1,10 +1,20 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
 
-from .models import Athlete, Championship, ChampionshipStanding
+from .models import Athlete, Championship, ChampionshipStanding, Club, Team
 from .forms import AthleteForm
 
-from .models import get_all_male_individual_kata_strings, get_all_female_individual_kata_strings, get_all_male_team_kata_strings, get_all_female_team_kata_strings, get_all_male_individual_kumite_strings, get_all_female_individual_kumite_strings, get_all_male_team_kumite_strings, get_all_female_team_kumite_strings
+from .models import get_all_male_individual_kata_strings,\
+    get_all_female_individual_kata_strings,\
+    get_all_male_team_kata_strings, get_all_female_team_kata_strings,\
+    get_all_male_individual_kumite_strings,\
+    get_all_female_individual_kumite_strings,\
+    get_all_male_team_kumite_strings,\
+    get_all_female_team_kumite_strings,\
+    get_all_u21_male_kata_strings,\
+    get_all_u21_female_kata_strings,\
+    get_all_u21_male_kumite_strings,\
+    get_all_u21_female_kumite_strings
 
 from .filters import AthleteFilter
 
@@ -50,8 +60,12 @@ def enter_athlete_page(request):
     female_individual_kata_strings = get_all_female_individual_kata_strings()
     male_team_kata_strings = get_all_male_team_kata_strings()
     female_team_kata_strings = get_all_female_team_kata_strings()
+    male_u21_kata_strings = get_all_u21_male_kata_strings()
+    female_u21_kata_strings = get_all_u21_female_kata_strings()
     male_individual_kumite_strings = get_all_male_individual_kumite_strings()
     female_individual_kumite_strings = get_all_female_individual_kumite_strings()
+    male_u21_kumite_strings = get_all_u21_male_kumite_strings()
+    female_u21_kumite_strings = get_all_u21_female_kumite_strings()
     male_team_kumite_strings = get_all_male_team_kumite_strings()
     female_team_kumite_strings = get_all_female_team_kumite_strings()
 
@@ -59,8 +73,12 @@ def enter_athlete_page(request):
     json_female_individual_kata_strings = json.dumps(female_individual_kata_strings)
     json_male_team_kata_strings = json.dumps(male_team_kata_strings)
     json_female_team_kata_strings = json.dumps(female_team_kata_strings)
+    json_male_u21_kata_strings = json.dumps(male_u21_kata_strings)
+    json_female_u21_kata_strings = json.dumps(female_u21_kata_strings)
     json_male_individual_kumite_strings = json.dumps(male_individual_kumite_strings)
     json_female_individual_kumite_strings = json.dumps(female_individual_kumite_strings)
+    json_male_u21_kumite_strings = json.dumps(male_u21_kumite_strings)
+    json_female_u21_kumite_strings = json.dumps(female_u21_kumite_strings)
     json_male_team_kumite_strings = json.dumps(male_team_kumite_strings)
     json_female_team_kumite_strings = json.dumps(female_team_kumite_strings)
 
@@ -77,8 +95,12 @@ def enter_athlete_page(request):
     context['female_individual_kata_strings'] = json_female_individual_kata_strings
     context['male_team_kata_strings'] = json_male_team_kata_strings
     context['female_team_kata_strings'] = json_female_team_kata_strings
+    context['male_u21_kata_strings'] = json_male_u21_kata_strings
+    context['female_u21_kata_strings'] = json_female_u21_kata_strings
     context['male_individual_kumite_strings'] = json_male_individual_kumite_strings
     context['female_individual_kumite_strings'] = json_female_individual_kumite_strings
+    context['male_u21_kumite_strings'] = json_male_u21_kumite_strings
+    context['female_u21_kumite_strings'] = json_female_u21_kumite_strings
     context['male_team_kumite_strings'] = json_male_team_kumite_strings
     context['female_team_kumite_strings'] = json_female_team_kumite_strings
 
@@ -158,3 +180,30 @@ def show_championshipstandings_page(request, championship_id):
     context['championshipstandings'] = championshipstandings
 
     return render(request, 'features/show_championshipstandings_page.html', context=context)
+
+def show_all_clubs_page(request):
+    context = {}
+
+    clubs = Club.objects.all().order_by('name')
+
+    paginated_clubs = Paginator(clubs, 4)
+    page_number = request.GET.get('page')
+    club_page_obj = paginated_clubs.get_page(page_number)
+
+    context['club_page_obj'] = club_page_obj
+
+    return render(request, 'features/show_all_clubs_page.html', context=context)
+
+
+def show_all_teams_page(request):
+    context = {}
+
+    teams = Team.objects.all().order_by('name')
+
+    paginated_teams = Paginator(teams, 4)
+    page_number = request.GET.get('page')
+    team_page_obj = paginated_teams.get_page(page_number)
+
+    context['team_page_obj'] = team_page_obj
+
+    return render(request, 'features/show_all_teams_page.html', context=context)

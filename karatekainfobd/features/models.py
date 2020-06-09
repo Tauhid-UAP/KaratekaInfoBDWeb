@@ -13,6 +13,49 @@ GENDER_CHOICES = {
 }
 
 # category choices for category field of Athlete
+
+CADET_MALE_KATA = 'Cadet Male Kata'
+CADET_MALE_KUMITE_0 = '-52kg Cadet Male Kumite'
+CADET_MALE_KUMITE_1 = '-57kg Cadet Male Kumite'
+CADET_MALE_KUMITE_2 = '-63kg Cadet Male Kumite'
+CADET_MALE_KUMITE_3 = '-70kg Cadet Male Kumite'
+CADET_MALE_KUMITE_4 = '+70kg Cadet Male Kumite'
+
+CADET_FEMALE_KATA = 'Cadet Female Kata'
+CADET_FEMALE_KUMITE_0 = '-47kg Cadet Female Kumite'
+CADET_FEMALE_KUMITE_1 = '-54kg Cadet Female Kumite'
+CADET_FEMALE_KUMITE_2 = '+54kg Cadet Female Kumite'
+
+JUNIOR_MALE_KATA = 'Junior Male Kata'
+JUNIOR_MALE_KUMITE_0 = '-55kg Junior Male Kumite'
+JUNIOR_MALE_KUMITE_1 = '-61kg Junior Male Kumite'
+JUNIOR_MALE_KUMITE_2 = '-68kg Junior Male Kumite'
+JUNIOR_MALE_KUMITE_3 = '-76kg Junior Male Kumite'
+JUNIOR_MALE_KUMITE_4 = '+76kg Junior Male Kumite'
+
+JUNIOR_FEMALE_KATA = 'Junior Female Kata'
+JUNIOR_FEMALE_KUMITE_0 = '-48kg Junior Female Kumite'
+JUNIOR_FEMALE_KUMITE_1 = '-53kg Junior Female Kumite'
+JUNIOR_FEMALE_KUMITE_2 = '-59kg Junior Female Kumite'
+JUNIOR_FEMALE_KUMITE_3 = '+59kg Junior Female Kumite'
+
+U21_MALE_KATA = 'U21 Male Kata'
+U21_MALE_KUMITE_0 = '-50kg U21 Male Kumite'
+U21_MALE_KUMITE_1 = '-55kg U21 Male Kumite'
+U21_MALE_KUMITE_2 = '-60kg U21 Male Kumite'
+U21_MALE_KUMITE_3 = '-67kg U21 Male Kumite'
+U21_MALE_KUMITE_4 = '-75kg U21 Male Kumite'
+U21_MALE_KUMITE_5 = '-84kg U21 Male Kumite'
+U21_MALE_KUMITE_6 = '+84kg U21 Male Kumite'
+
+U21_FEMALE_KATA = 'U21 Female Kata'
+U21_FEMALE_KUMITE_0 = '-45kg U21 Female Kumite'
+U21_FEMALE_KUMITE_1 = '-50kg U21 Female Kumite'
+U21_FEMALE_KUMITE_2 = '-55g U21 Female Kumite'
+U21_FEMALE_KUMITE_3 = '-61kg U21 Female Kumite'
+U21_FEMALE_KUMITE_4 = '-68kg U21 Female Kumite'
+U21_FEMALE_KUMITE_5 = '+68kg U21 Female Kumite'
+
 MALE_INDIVIDUAL_KATA = 'Male Individual Kata'
 MALE_TEAM_KATA = 'Male Team Kata'
 MALE_KUMITE_EVENT_0 = '-50kg Male Kumite'
@@ -34,6 +77,26 @@ FEMALE_KUMITE_EVENT_4 = '-68kg Female Kumite'
 FEMALE_KUMITE_EVENT_5 = '+68kg Female Kumite'
 FEMALE_TEAM_KUMITE = 'Female Team Kumite'
 
+# constants for athletes who participate
+# in both Senior and U21 categories
+# aged from 18 to 21
+# U21_SENIOR_MALE_KATA = 'U21 Male Kata and Male Individual Kata'
+# U21_SENIOR_MALE_KUMITE_0 = '-50kg U21 Male Kumite and -50kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_1 = '-55kg U21 Male Kumite and -55kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_2 = '-60kg U21 Male Kumite and -60kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_3 = '-67kg U21 Male Kumite and -67kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_4 = '-75kg U21 Male Kumite and -75kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_5 = '-84kg U21 Male Kumite and -84kg Male Individual Kumite'
+# U21_SENIOR_MALE_KUMITE_6 = '+84kg U21 Male Kumite and +84kg Male Individual Kumite'
+#
+# U21_SENIOR_FEMALE_KATA = 'U21 Male Kata and Male Individual Kata'
+# U21_SENIOR_FEMALE_KUMITE_0 = '-45kg U21 Female Kumite and -45kg Female Individual Kumite'
+# U21_SENIOR_FEMALE_KUMITE_1 = '-50kg U21 Female Kumite and -50kg Female Individual Kumite'
+# U21_SENIOR_FEMALE_KUMITE_2 = '-55kg U21 Female Kumite and -55kg Female Individual Kumite'
+# U21_SENIOR_FEMALE_KUMITE_3 = '-61kg U21 Female Kumite and -61kg Female Individual Kumite'
+# U21_SENIOR_FEMALE_KUMITE_4 = '-68kg U21 Female Kumite and -68kg Female Individual Kumite'
+# U21_SENIOR_FEMALE_KUMITE_5 = '+68kg U21 Female Kumite and +68kg Female Individual Kumite'
+
 # constants for position field of ChampionshipStanding
 # position constants
 FIRST_POSITION = 1
@@ -46,13 +109,65 @@ SILVER = 'Silver'
 BRONZE = 'Bronze'
 
 # The following lists are to be passed to the HTML as JSON strings
+
+CADET_MALE_KATA_STRINGS = [CADET_MALE_KATA]
+CADET_FEMALE_KATA_STRINGS = [CADET_FEMALE_KATA]
+JUNIOR_MALE_KATA_STRINGS = [JUNIOR_FEMALE_KATA]
+JUNIOR_FEMALE_KATA_STRINGS = [JUNIOR_FEMALE_KATA]
+U21_MALE_KATA_STRINGS = [U21_MALE_KATA]
+U21_FEMALE_KATA_STRINGS = [U21_FEMALE_KATA]
 MALE_INDIVIDUAL_KATA_STRINGS = [MALE_INDIVIDUAL_KATA]
-
 FEMALE_INDIVIDUAL_KATA_STRINGS = [FEMALE_INDIVIDUAL_KATA]
-
 MALE_TEAM_KATA_STRINGS = [MALE_TEAM_KATA]
-
 FEMALE_TEAM_KATA_STRINGS = [FEMALE_TEAM_KATA]
+
+CADET_MALE_KUMITE_STRINGS = [
+    CADET_MALE_KUMITE_0,
+    CADET_MALE_KUMITE_1,
+    CADET_MALE_KUMITE_2,
+    CADET_MALE_KUMITE_3,
+    CADET_MALE_KUMITE_4,
+]
+
+CADET_FEMALE_KUMITE_STRINGS = [
+    CADET_FEMALE_KUMITE_0,
+    CADET_FEMALE_KUMITE_1,
+    CADET_FEMALE_KUMITE_2,
+]
+
+JUNIOR_MALE_KUMITE_STRINGS = [
+    JUNIOR_MALE_KUMITE_0,
+    JUNIOR_MALE_KUMITE_1,
+    JUNIOR_MALE_KUMITE_2,
+    JUNIOR_MALE_KUMITE_3,
+    JUNIOR_MALE_KUMITE_4,
+]
+
+JUNIOR_FEMALE_KUMITE_STRINGS = [
+    JUNIOR_FEMALE_KUMITE_0,
+    JUNIOR_FEMALE_KUMITE_1,
+    JUNIOR_FEMALE_KUMITE_2,
+    JUNIOR_FEMALE_KUMITE_3,
+]
+
+U21_MALE_KUMITE_STRINGS = [
+    U21_MALE_KUMITE_0,
+    U21_MALE_KUMITE_1,
+    U21_MALE_KUMITE_2,
+    U21_MALE_KUMITE_3,
+    U21_MALE_KUMITE_4,
+    U21_MALE_KUMITE_5,
+    U21_MALE_KUMITE_6,
+]
+
+U21_FEMALE_KUMITE_STRINGS = [
+    U21_FEMALE_KUMITE_0,
+    U21_FEMALE_KUMITE_1,
+    U21_FEMALE_KUMITE_2,
+    U21_FEMALE_KUMITE_3,
+    U21_FEMALE_KUMITE_4,
+    U21_FEMALE_KUMITE_5,
+]
 
 MALE_INDIVIDUAL_KUMITE_STRINGS = [
     MALE_KUMITE_EVENT_0,
@@ -79,6 +194,79 @@ FEMALE_TEAM_KUMITE_STRINGS = [FEMALE_TEAM_KUMITE]
 
 # The following lists are to be used
 # As choices
+
+CADET_MALE_KATA_CHOICES = [
+    (CADET_MALE_KATA, CADET_MALE_KATA),
+]
+
+CADET_FEMALE_KATA_CHOICES = [
+    (CADET_FEMALE_KATA, CADET_FEMALE_KATA),
+]
+
+CADET_MALE_KUMITE_CHOICES = [
+    (CADET_MALE_KUMITE_0, CADET_MALE_KUMITE_0),
+    (CADET_MALE_KUMITE_1, CADET_MALE_KUMITE_1),
+    (CADET_MALE_KUMITE_2, CADET_MALE_KUMITE_2),
+    (CADET_MALE_KUMITE_3, CADET_MALE_KUMITE_3),
+    (CADET_MALE_KUMITE_4, CADET_MALE_KUMITE_4),
+]
+
+CADET_FEMALE_KUMITE_CHOICES = [
+    (CADET_FEMALE_KUMITE_0, CADET_FEMALE_KUMITE_0),
+    (CADET_FEMALE_KUMITE_1, CADET_FEMALE_KUMITE_1),
+    (CADET_FEMALE_KUMITE_2, CADET_FEMALE_KUMITE_2),
+]
+
+JUNIOR_MALE_KATA_CHOICES = [
+    (JUNIOR_MALE_KATA, JUNIOR_MALE_KATA),
+]
+
+JUNIOR_FEMALE_KATA_CHOICES = [
+    (JUNIOR_FEMALE_KATA, JUNIOR_FEMALE_KATA),
+]
+
+JUNIOR_MALE_KUMITE_CHOICES = [
+    (JUNIOR_MALE_KUMITE_0, JUNIOR_MALE_KUMITE_0),
+    (JUNIOR_MALE_KUMITE_1, JUNIOR_MALE_KUMITE_1),
+    (JUNIOR_MALE_KUMITE_2, JUNIOR_MALE_KUMITE_2),
+    (JUNIOR_MALE_KUMITE_3, JUNIOR_MALE_KUMITE_3),
+    (JUNIOR_MALE_KUMITE_4, JUNIOR_MALE_KUMITE_4),
+]
+
+JUNIOR_FEMALE_KUMITE_CHOICES = [
+    (JUNIOR_FEMALE_KUMITE_0, JUNIOR_FEMALE_KUMITE_0),
+    (JUNIOR_FEMALE_KUMITE_1, JUNIOR_FEMALE_KUMITE_1),
+    (JUNIOR_FEMALE_KUMITE_2, JUNIOR_FEMALE_KUMITE_2),
+    (JUNIOR_FEMALE_KUMITE_3, JUNIOR_FEMALE_KUMITE_3),
+]
+
+U21_MALE_KATA_CHOICES = [
+    (U21_MALE_KATA, U21_MALE_KATA),
+]
+
+U21_FEMALE_KATA_CHOICES = [
+    (U21_FEMALE_KATA, U21_FEMALE_KATA),
+]
+
+U21_MALE_KUMITE_CHOICES = [
+    (U21_MALE_KUMITE_0, U21_MALE_KUMITE_0),
+    (U21_MALE_KUMITE_1, U21_MALE_KUMITE_1),
+    (U21_MALE_KUMITE_2, U21_MALE_KUMITE_2),
+    (U21_MALE_KUMITE_3, U21_MALE_KUMITE_3),
+    (U21_MALE_KUMITE_4, U21_MALE_KUMITE_4),
+    (U21_MALE_KUMITE_5, U21_MALE_KUMITE_5),
+    (U21_MALE_KUMITE_6, U21_MALE_KUMITE_6),
+]
+
+U21_FEMALE_KUMITE_CHOICES = [
+    (U21_FEMALE_KUMITE_0, U21_FEMALE_KUMITE_0),
+    (U21_FEMALE_KUMITE_1, U21_FEMALE_KUMITE_1),
+    (U21_FEMALE_KUMITE_2, U21_FEMALE_KUMITE_2),
+    (U21_FEMALE_KUMITE_3, U21_FEMALE_KUMITE_3),
+    (U21_FEMALE_KUMITE_4, U21_FEMALE_KUMITE_4),
+    (U21_FEMALE_KUMITE_5, U21_FEMALE_KUMITE_5),
+]
+
 MALE_INDIVIDUAL_KATA_CHOICES = [
     (MALE_INDIVIDUAL_KATA, MALE_INDIVIDUAL_KATA),
 ]
@@ -129,8 +317,29 @@ POSITION_CHOICES = [
 ]
 
 # The following methods retrieve choices for the Athlete model
+
+def get_all_u21_kata_choices():
+    all_u21_kata_choices = []
+    all_u21_kata_choices += U21_MALE_KATA_CHOICES
+    all_u21_kata_choices += U21_FEMALE_KATA_CHOICES
+
+    return all_u21_kata_choices
+
+def get_all_u21_kumite_choices():
+    all_u21_kumite_choices = []
+    all_u21_kumite_choices += U21_MALE_KUMITE_CHOICES
+    all_u21_kumite_choices += U21_MALE_KUMITE_CHOICES
+
+    return all_u21_kumite_choices
+
 def get_all_individual_kata_choices():
     all_individual_kata_choices = []
+    all_individual_kata_choices += CADET_MALE_KATA_CHOICES
+    all_individual_kata_choices += CADET_FEMALE_KATA_CHOICES
+    all_individual_kata_choices += JUNIOR_MALE_KATA_CHOICES
+    all_individual_kata_choices += JUNIOR_FEMALE_KATA_CHOICES
+    # all_individual_kata_choices += U21_MALE_KATA_CHOICES
+    # all_individual_kata_choices += U21_FEMALE_KATA_CHOICES
     all_individual_kata_choices+=MALE_INDIVIDUAL_KATA_CHOICES
     all_individual_kata_choices+=FEMALE_INDIVIDUAL_KATA_CHOICES
 
@@ -139,6 +348,12 @@ def get_all_individual_kata_choices():
 
 def get_all_individual_kumite_choices():
     all_individual_kumite_choices = []
+    all_individual_kumite_choices += CADET_MALE_KUMITE_CHOICES
+    all_individual_kumite_choices += CADET_FEMALE_KUMITE_CHOICES
+    all_individual_kumite_choices += JUNIOR_MALE_KUMITE_CHOICES
+    all_individual_kumite_choices += JUNIOR_FEMALE_KUMITE_CHOICES
+    # all_individual_kumite_choices += U21_MALE_KUMITE_CHOICES
+    # all_individual_kumite_choices += U21_FEMALE_KUMITE_CHOICES
     all_individual_kumite_choices += MALE_INDIVIDUAL_KUMITE_CHOICES
     all_individual_kumite_choices += FEMALE_INDIVIDUAL_KUMITE_CHOICES
 
@@ -170,6 +385,43 @@ def get_all_category_choices():
 
 # The following methods are to be used to retrieve the string constants
 # To be converted to JSON strings
+
+def get_all_cadet_male_kata_strings():
+    return CADET_MALE_KATA_STRINGS
+
+def get_all_cadet_female_kata_strings():
+    return CADET_FEMALE_KATA_STRINGS
+
+def get_all_cadet_male_kumite_strings():
+    return CADET_MALE_KUMITE_STRINGS
+
+def get_all_cadet_female_kumite_strings():
+    return CADET_FEMALE_KUMITE_STRINGS
+
+def get_all_junior_male_kata_strings():
+    return JUNIOR_MALE_KATA_STRINGS
+
+def get_all_junior_female_kata_strings():
+    return JUNIOR_FEMALE_KATA_STRINGS
+
+def get_all_junior_male_kumite_strings():
+    return JUNIOR_MALE_KUMITE_STRINGS
+
+def get_all_junior_female_kumite_strings():
+    return JUNIOR_FEMALE_KUMITE_STRINGS
+
+def get_all_u21_male_kata_strings():
+    return U21_MALE_KATA_STRINGS
+
+def get_all_u21_female_kata_strings():
+    return U21_FEMALE_KATA_STRINGS
+
+def get_all_u21_male_kumite_strings():
+    return U21_MALE_KUMITE_STRINGS
+
+def get_all_u21_female_kumite_strings():
+    return U21_FEMALE_KUMITE_STRINGS
+
 def get_all_male_individual_kata_strings():
     return MALE_INDIVIDUAL_KATA_STRINGS
 
@@ -234,6 +486,10 @@ class Athlete(models.Model):
     team_kata_active = models.BooleanField(default=False)
     team_kumite_event = models.CharField(max_length=22, choices=get_all_team_kumite_choices(), blank=True, default="")
     team_kumite_active = models.BooleanField(default=False)
+    u21_kata_event = models.CharField(max_length=22, choices=get_all_u21_kata_choices(), blank=True, default="")
+    u21_kata_active = models.BooleanField(default=False)
+    u21_kumite_event = models.CharField(max_length=22, choices=get_all_u21_kumite_choices(), blank=True, default="")
+    u21_kumite_active = models.BooleanField(default=False)
     gold = models.PositiveIntegerField(default=5)
     silver = models.PositiveIntegerField(default=5)
     bronze = models.PositiveIntegerField(default=5)
