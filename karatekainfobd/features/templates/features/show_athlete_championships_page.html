@@ -5,21 +5,25 @@
 {% block main_block2 %}
 <div class="container nav justify-content-center">
 
-    {% for championship in championships %}
-        <div class="card">
-            {% if championship.logo_picture %}
-                <div>
-                    <img src="{{ championship.logo_picture.url }}" class="w-25 img-fluid card-img-top" alt="Responsive image">
+    {% if not championships %}
+        <p>No championship record exists for {{athlete.name}} yet.</p>
+    {% else %}
+        {% for championship in championships %}
+            <div class="card">
+                {% if championship.logo_picture %}
+                    <div>
+                        <img src="{{ championship.logo_picture.url }}" class="w-25 img-fluid card-img-top" alt="Responsive image">
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <a href="{% url 'show_athlete_championshipstandings_page' athlete.id championship.id %}">
+                        <p class="lead">
+                            <em> {{ championship.title }} </em>
+                        </p>
+                    </a>
                 </div>
-            {% endif %}
-            <div class="card-body">
-                <a href="{% url 'show_athlete_championshipstandings_page' athlete.id championship.id %}">
-                    <p class="lead">
-                        <em> {{ championship.title }} </em>
-                    </p>
-                </a>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

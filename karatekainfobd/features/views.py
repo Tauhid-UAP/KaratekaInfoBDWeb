@@ -23,7 +23,19 @@ import json
 # Create your views here.
 
 def homepage(request):
-    return render(request, 'features/homepage.html')
+    context = {}
+    athlete_list = Athlete.objects.all().order_by('name')
+    athlete_filter = AthleteFilter(request.GET, queryset=athlete_list)
+    # context['athlete_list'] = athlete_list
+    context['athlete_filter'] = athlete_filter
+
+    paginated_athlete_filter = Paginator(athlete_filter.qs, 4)
+    page_number = request.GET.get('page')
+    athlete_page_obj = paginated_athlete_filter.get_page(page_number)
+
+    context['athlete_page_obj'] = athlete_page_obj
+
+    return render(request, 'features/homepage.html', context=context)
 
 def show_all_athletes_page(request):
     context = {}

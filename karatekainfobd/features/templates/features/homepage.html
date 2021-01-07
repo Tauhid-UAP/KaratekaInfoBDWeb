@@ -1,13 +1,180 @@
 {% extends 'base.html' %}
 
+{% load features_extras %}
+
+{% load widget_tweaks %}
+
 {% block main_block %}
 <div>
     <div class="btn-group-lg text-center p-3 mb-2 bg-dark text-white" role="group" aria-label="Basic example">
 
-        <a class="btn btn-outline-light" href="{% url 'enter_athlete_page' %}" role="button">Enter Athlete Info</a>
-        <a class="btn btn-outline-light" href="{% url 'show_all_athletes_page' %}" role="button">View Athletes</a>
+<!--        <a class="btn btn-outline-light" href="{% url 'enter_athlete_page' %}" role="button">Enter Athlete Info</a>-->
+<!--        <a class="btn btn-outline-light" href="{% url 'show_all_athletes_page' %}" role="button">View Athletes</a>-->
         <a class="btn btn-outline-light" href="{% url 'show_all_championships_page' %}" role="button">View Championships</a>
 
     </div>
+
+    <form method="get">
+        <div class="well">
+          <h4 style="margin-top: 0">Filter</h4>
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.name.label_tag }}
+              {% render_field athlete_filter.form.name class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.gender.label_tag }}
+              {% render_field athlete_filter.form.gender class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.weight.label_tag }}
+              {% render_field athlete_filter.form.weight class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.club.label_tag }}
+              {% render_field athlete_filter.form.club class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.team.label_tag }}
+              {% render_field athlete_filter.form.team class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.individual_kata_event.label_tag }}
+              {% render_field athlete_filter.form.individual_kata_event class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.individual_kata_active.label_tag }}
+              {% render_field athlete_filter.form.individual_kata_active class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.individual_kumite_event.label_tag }}
+              {% render_field athlete_filter.form.individual_kumite_event class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.individual_kumite_active.label_tag }}
+              {% render_field athlete_filter.form.individual_kumite_active class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.team_kata_event.label_tag }}
+              {% render_field athlete_filter.form.team_kata_event class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.team_kata_active.label_tag }}
+              {% render_field athlete_filter.form.team_kata_active class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.team_kumite_event.label_tag }}
+              {% render_field athlete_filter.form.team_kumite_event class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.team_kumite_active.label_tag }}
+              {% render_field athlete_filter.form.team_kumite_active class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ athlete_filter.form.active.label_tag }}
+              {% render_field athlete_filter.form.active class="form-control" %}
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <span>
+                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                </svg>
+            </span>
+            Search
+          </button>
+        </div>
+      </form>
+
+    {% for athlete in athlete_page_obj %}
+    <div class="nav justify-content-center">
+        <div class="card" style="width: 35rem;">
+            <a href="{% url 'show_athlete_page' athlete.id %}">
+                <img src="{{ athlete.picture.url }}" class="card-img-top" width="120">
+            </a>
+            <div class="card-body">
+                <h2>
+                    <p class="card-title">{{athlete.name}}</p>
+                    <p class="font-weight-lighter">{{athlete.gender}}</p>
+                    <p class="font-weight-lighter">Born: {{athlete.date_of_birth}}</p>
+                    <p class="font-weight-lighter">Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in</p>
+                    <p class="font-weight-lighter">Weight: {{athlete.weight}} kg</p>
+                    <p class="font-weight-lighter">Club: {{athlete.club.name}}</p>
+                    <p class="font-weight-lighter">Team: {{athlete.team.name}}</p>
+                    {% if athlete.individual_kata_event %}
+                        <p class="font-weight-lighter">
+                            {{athlete.individual_kata_event}}
+                            {% if athlete.individual_kata_active %}
+                                (Active)
+                            {% else %}
+                                (Inactive)
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if athlete.individual_kumite_event %}
+                        <p class="font-weight-lighter">
+                            {{athlete.individual_kumite_event}}
+                            {% if athlete.individual_kumite_active %}
+                                (Active)
+                            {% else %}
+                                (Inactive)
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if athlete.team_kata_event %}
+                        <p class="font-weight-lighter">
+                            {{athlete.team_kata_event}}
+                            {% if athlete.team_kata_active %}
+                                (Active)
+                            {% else %}
+                                (Inactive)
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if athlete.team_kumite_event %}
+                        <p class="font-weight-lighter">
+                            {{athlete.team_kumite_event}}
+                            {% if athlete.team_kumite_active %}
+                                (Active)
+                            {% else %}
+                                (Inactive)
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    <p class="font-weight-lighter">Gold: {{athlete.gold}}</p>
+                    <p class="font-weight-lighter">Silver: {{athlete.silver}}</p>
+                    <p class="font-weight-lighter">Bronze: {{athlete.bronze}}</p>
+                    <p class="font-weight-lighter">
+                        {% if not athlete.active %}
+                            Retired
+                        {% else %}
+                            Active
+                        {% endif %}
+                    </p>
+                </h2>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="pagination nav justify-content-center">
+        <span class="step-links">
+            {% if athlete_page_obj.has_previous %}
+                <a href="{% relative_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                <a href="{% relative_url athlete_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ athlete_page_obj.number }} of {{ athlete_page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if athlete_page_obj.has_next %}
+                <a href="{% relative_url athlete_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                <a href="{% relative_url athlete_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
 </div>
 {% endblock %}

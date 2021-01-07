@@ -1,7 +1,7 @@
 {% extends 'features/show_athlete_page.html' %}
 
 {% block main_block1 %}
-<h3> Standings of {{ athlete.name }} in {{ championship.title }}</h3>
+<h3> Standings of {{ athlete.name }} in {{ championship.title }}, {{championship.start_date.year}}</h3>
 {% endblock %}
 
 {% block main_block2 %}
