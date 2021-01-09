@@ -3,3 +3,6 @@ db.sqlite3
 __pycache__/
 .env
 .idea/
+athletes.csv
+clubs.csv
+teams.csv

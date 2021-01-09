@@ -516,4 +516,4 @@ class ChampionshipStanding(models.Model):
     position = models.IntegerField(choices=get_all_position_choices())
 
     def __str__(self):
-        return self.championship.__str__()+' Position '+str(self.position)
+        return self.championship.__str__() + ' Position ' + str(self.position)

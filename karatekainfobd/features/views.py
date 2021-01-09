@@ -20,22 +20,30 @@ from .filters import AthleteFilter
 
 import json
 
+import csv
+
+from decouple import config
+
 # Create your views here.
 
+# def homepage(request):
+#     context = {}
+#     athlete_list = Athlete.objects.all().order_by('name')
+#     athlete_filter = AthleteFilter(request.GET, queryset=athlete_list)
+#     # context['athlete_list'] = athlete_list
+#     context['athlete_filter'] = athlete_filter
+#
+#     paginated_athlete_filter = Paginator(athlete_filter.qs, 4)
+#     page_number = request.GET.get('page')
+#     athlete_page_obj = paginated_athlete_filter.get_page(page_number)
+#
+#     context['athlete_page_obj'] = athlete_page_obj
+#
+#     return render(request, 'features/homepage.html', context=context)
+
 def homepage(request):
-    context = {}
-    athlete_list = Athlete.objects.all().order_by('name')
-    athlete_filter = AthleteFilter(request.GET, queryset=athlete_list)
-    # context['athlete_list'] = athlete_list
-    context['athlete_filter'] = athlete_filter
 
-    paginated_athlete_filter = Paginator(athlete_filter.qs, 4)
-    page_number = request.GET.get('page')
-    athlete_page_obj = paginated_athlete_filter.get_page(page_number)
-
-    context['athlete_page_obj'] = athlete_page_obj
-
-    return render(request, 'features/homepage.html', context=context)
+    return render(request, 'features/homepage.html')
 
 def show_all_athletes_page(request):
     context = {}
@@ -219,3 +227,194 @@ def show_all_teams_page(request):
     context['team_page_obj'] = team_page_obj
 
     return render(request, 'features/show_all_teams_page.html', context=context)
+
+def get_athletes_csv(request, secret):
+    csv_secret = config('CSV_SECRET')
+
+    print('Secret: ', secret)
+    print('CSV_SECRET', csv_secret)
+
+    if secret == csv_secret:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="athletes.csv"'
+        athletes = Athlete.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Name',
+            'Gender',
+            'Date of Birth',
+            'Feet',
+            'Inches',
+            'Weight',
+            'Club',
+            'Team',
+            'Ind. Kata',
+            'Active 1',
+            'Ind. Kumite',
+            'Active 2',
+            'Team Kata',
+            'Active 3',
+            'Team Kumite',
+            'Active 4',
+            'U21 Kata',
+            'Active 5',
+            'U21 Kumite',
+            'Active 6',
+            'Gold',
+            'Silver',
+            'Bronze',
+            'Description',
+            'Picture',
+            'Active'
+        ])
+
+        for athlete in athletes:
+            writer.writerow([
+                athlete.name,
+                athlete.gender,
+                athlete.date_of_birth,
+                athlete.feet_height,
+                athlete.inch_height,
+                athlete.weight,
+                athlete.club,
+                athlete.team,
+                athlete.individual_kata_event,
+                athlete.individual_kata_active,
+                athlete.individual_kumite_event,
+                athlete.individual_kumite_active,
+                athlete.team_kata_event,
+                athlete.team_kata_active,
+                athlete.team_kumite_event,
+                athlete.team_kumite_active,
+                athlete.u21_kata_event,
+                athlete.u21_kata_active,
+                athlete.u21_kumite_event,
+                athlete.u21_kumite_active,
+                athlete.gold,
+                athlete.silver,
+                athlete.bronze,
+                athlete.description,
+                athlete.picture,
+                athlete.active
+            ])
+
+        return response
+
+    else:
+        return redirect('homepage')
+
+def get_clubs_csv(request, secret):
+    csv_secret = config('CSV_SECRET')
+    if secret == csv_secret:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="clubs.csv"'
+        clubs = Club.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Name',
+            'Founded',
+            'Description',
+            'Logo'
+        ])
+
+        for club in clubs:
+            writer.writerow([
+                club.name,
+                club.founded,
+                club.description,
+                club.logo_picture
+            ])
+
+        return response
+
+    else:
+        return redirect('homepage')
+
+def get_teams_csv(request, secret):
+    csv_secret = config('CSV_SECRET')
+
+    if secret == csv_secret:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="teams.csv"'
+        teams = Team.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Name',
+            'Founded',
+            'Description',
+            'Logo'
+        ])
+
+        for team in teams:
+            writer.writerow([
+                team.name,
+                team.founded,
+                team.description,
+                team.logo_picture
+            ])
+
+        return response
+
+    else:
+        return redirect('homepage')
+
+def get_championships_csv(request, secret):
+    csv_secret = config('CSV_SECRET')
+
+    if secret == csv_secret:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="championships.csv"'
+        championships = Championship.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Title',
+            'Start Date',
+            'Description',
+            'Logo'
+        ])
+
+        for championship in championships:
+            writer.writerow([
+                championship.title,
+                championship.start_date,
+                championship.description,
+                championship.logo_picture
+            ])
+
+        return response
+
+    else:
+        return redirect('homepage')
+
+def get_championshipstandings_csv(request, secret):
+    csv_secret = config('CSV_SECRET')
+
+    if secret == csv_secret:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="championshipstandings.csv"'
+        championshipstandings = ChampionshipStanding.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Championship',
+            'Athlete',
+            'Category',
+            'Position'
+        ])
+
+        for championshipstanding in championshipstandings:
+            writer.writerow([
+                championshipstanding.championship,
+                championshipstanding.athlete,
+                championshipstanding.category,
+                championshipstanding.position
+            ])
+
+        return response
+
+    else:
+        return redirect('homepage')

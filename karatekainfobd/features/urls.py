@@ -16,4 +16,9 @@ urlpatterns = [
     path('show_all_clubs_page/', views.show_all_clubs_page, name='show_all_clubs_page'),
     path('show_all_teams_page/', views.show_all_teams_page, name='show_all_teams_page'),
 
+    path('get_athletes_csv/<slug:secret>/', views.get_athletes_csv, name='get_athletes_csv'),
+    path('get_clubs_csv/<slug:secret>/', views.get_clubs_csv, name='get_clubs_csv'),
+    path('get_teams_csv/<slug:secret>/', views.get_teams_csv, name='get_teams_csv'),
+    path('get_championships_csv/<slug:secret>/', views.get_championships_csv, name='get_championships_csv'),
+    path('get_championshipstandings_csv/<slug:secret>/', views.get_championshipstandings_csv, name='get_championshipstandings_csv')
 ]
