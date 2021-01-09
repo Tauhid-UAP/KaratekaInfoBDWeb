@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://kamruzzamantauhid.pythonanywhere.com']
+ALLOWED_HOSTS = ['kamruzzamantauhid.pythonanywhere.com']
 
 # Database
 
