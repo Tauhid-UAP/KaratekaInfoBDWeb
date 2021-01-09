@@ -12,7 +12,7 @@ DATABASES = {
         'NAME': config('MYSQL_DB_NAME'),
         'USER': config('USERNAME'),
         'PASSWORD': config('MYSQL_DB_PASSWORD'),
-        'HOST': config('MSQL_DB_HOSTNAME'),
+        'HOST': config('MYSQL_DB_HOSTNAME'),
     }
 }
 
