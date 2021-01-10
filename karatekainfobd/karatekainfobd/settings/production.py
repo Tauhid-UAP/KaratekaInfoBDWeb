@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['kamruzzamantauhid.pythonanywhere.com']
+ALLOWED_HOSTS = [config('HOST1')]
 
 # Database
 
