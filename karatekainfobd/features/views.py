@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
 
+from django.views.generic import DetailView
+
 from .models import Athlete, Championship, ChampionshipStanding, Club, Team
 from .forms import AthleteForm
 
@@ -227,6 +229,52 @@ def show_all_teams_page(request):
     context['team_page_obj'] = team_page_obj
 
     return render(request, 'features/show_all_teams_page.html', context=context)
+
+class ClubDetailView(DetailView):
+    model = Club
+    template_name = 'features/club_detail.html'
+
+    def get(self, request, pk) :
+        context = {}
+
+        club = Club.objects.get(id=pk)
+
+        try:
+            athletes = club.athlete_set.all().order_by('name')
+        except:
+            athletes = []
+
+        paginated_athletes = Paginator(athletes, 4)
+        page_number = request.GET.get('page')
+        athlete_page_obj = paginated_athletes.get_page(page_number)
+
+        context['club'] = club
+        context['athlete_page_obj'] = athlete_page_obj
+
+        return render(request, self.template_name, context)
+
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = 'features/team_detail.html'
+
+    def get(self, request, pk) :
+        context = {}
+
+        team = Team.objects.get(id=pk)
+
+        try:
+            athletes = team.athlete_set.all().order_by('name')
+        except:
+            athletes = []
+
+        paginated_athletes = Paginator(athletes, 4)
+        page_number = request.GET.get('page')
+        athlete_page_obj = paginated_athletes.get_page(page_number)
+
+        context['team'] = team
+        context['athlete_page_obj'] = athlete_page_obj
+
+        return render(request, self.template_name, context)
 
 def get_athletes_csv(request, secret):
     csv_secret = config('CSV_SECRET')

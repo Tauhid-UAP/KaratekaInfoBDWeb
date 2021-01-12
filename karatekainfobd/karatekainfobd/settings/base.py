@@ -38,6 +38,16 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'django_extensions',
+
+    # address apps
+    # not used
+    # but required
+    # to avoid migration conflicts
+    'address',
+
+    'django_address',
+
+    'phone_field',
 ]
 
 MIDDLEWARE = [

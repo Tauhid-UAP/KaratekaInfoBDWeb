@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load features_extras %}
+
+{% block main_block %}
+
+    <div class="text-center p-3 mb-2 bg-dark text-white" aria-label="Basic example">
+        <p> {{team.name}} </p>
+    </div>
+
+    <div class="text-center">
+        {% if club.phone_number %}
+            <p>Phone: {{club.phone_number}}</p>
+        {% endif %}
+        {% if club.address %}
+            <p>Address: {{club.address}}</p>
+        {% endif %}
+    </div>
+
+    {% for athlete in athlete_page_obj %}
+        <div class="nav justify-content-center">
+            <div class="card" style="width: 20rem;">
+                <a href="{% url 'show_athlete_page' athlete.id %}">
+                    <img src="{{ athlete.picture.url }}" class="card-img-top" width="120">
+                </a>
+                <div class="card-body">
+                    <h2>
+                        <p class="card-title">{{athlete.name}}</p>
+                        <p class="font-weight-lighter">{{athlete.gender}}</p>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if athlete_page_obj %}
+        <div class="pagination nav justify-content-center">
+            <span class="step-links">
+                {% if athlete_page_obj.has_previous %}
+                    <a href="{% relative_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                    <a href="{% relative_url athlete_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ athlete_page_obj.number }} of {{ athlete_page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if athlete_page_obj.has_next %}
+                    <a href="{% relative_url athlete_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                    <a href="{% relative_url athlete_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

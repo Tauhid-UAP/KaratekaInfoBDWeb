@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load features_extras %}
+
 {% block main_block %}
 
 {% for team in team_page_obj %}
@@ -10,7 +12,7 @@
         {% endif %}
         <div class="card-body">
             <h2>
-                <a href="">
+                <a href="{% url 'team_detail' team.id %}">
                     <p class="card-title">{{team.name}}</p>
                 </a>
                 <p class="font-weight-lighter">
@@ -32,8 +34,8 @@
 <div class="pagination nav justify-content-center">
     <span class="step-links">
         {% if team_page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{team_page_obj.previous_page_number}}">previous</a>
+            <a href="{% relative_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+            <a href="{% relative_url team_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -41,8 +43,8 @@
         </span>
 
         {% if team_page_obj.has_next %}
-            <a href="?page={{team_page_obj.next_page_number}}">next</a>
-            <a href="?page={{team_page_obj.paginator.num_pages}}">last &raquo;</a>
+            <a href="{% relative_url team_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+            <a href="{% relative_url team_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
         {% endif %}
     </span>
 </div>

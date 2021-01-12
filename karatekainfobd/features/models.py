@@ -4,6 +4,8 @@ from django.core.validators import MinValueValidator
 
 from decimal import Decimal
 
+from phone_field import PhoneField
+
 # Create your models here.
 
 # gender choices for gender field of Athlete
@@ -456,6 +458,8 @@ class Club(models.Model):
     founded = models.DateField(blank=True, null=True)
     description = models.CharField(max_length=100, blank=True, default='')
     logo_picture = models.ImageField(upload_to='club_logos', blank=True)
+    address = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = PhoneField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -465,6 +469,8 @@ class Team(models.Model):
     founded = models.DateField(blank=True, null=True)
     description = models.CharField(max_length=100, blank=True, default='')
     logo_picture = models.ImageField(upload_to='team_logos', blank=True)
+    address = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = PhoneField(blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -13,8 +13,13 @@ urlpatterns = [
     path('show_athlete_championshipstandings_page/<int:athlete_id>/<int:championship_id>/', views.show_athlete_championshipstandings_page, name='show_athlete_championshipstandings_page'),
     path('show_all_championships_page/', views.show_all_championships_page, name='show_all_championships_page'),
     path('show_championshipstandings_page/<int:championship_id>/', views.show_championshipstandings_page, name='show_championshipstandings_page'),
+
     path('show_all_clubs_page/', views.show_all_clubs_page, name='show_all_clubs_page'),
     path('show_all_teams_page/', views.show_all_teams_page, name='show_all_teams_page'),
+
+    path('club_detail/<int:pk>/', views.ClubDetailView.as_view(), name='club_detail'),
+    path('team_detail/<int:pk>/', views.TeamDetailView.as_view(), name='team_detail'),
+
 
     path('get_athletes_csv/<slug:secret>/', views.get_athletes_csv, name='get_athletes_csv'),
     path('get_clubs_csv/<slug:secret>/', views.get_clubs_csv, name='get_clubs_csv'),
