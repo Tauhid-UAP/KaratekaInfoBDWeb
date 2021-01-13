@@ -9,7 +9,7 @@
         <p>No championship record exists for {{athlete.name}} yet.</p>
     {% else %}
         {% for championship in championships %}
-            <div class="card">
+            <div class="card container" style="margin-bottom: 20px;">
                 {% if championship.logo_picture %}
                     <div>
                         <img src="{{ championship.logo_picture.url }}" class="w-25 img-fluid card-img-top" alt="Responsive image">
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <a href="{% url 'show_athlete_championshipstandings_page' athlete.id championship.id %}">
                         <p class="lead">
-                            <em> {{ championship.title }} </em>
+                            <em> {{ championship.name }} </em>
                         </p>
                     </a>
                 </div>

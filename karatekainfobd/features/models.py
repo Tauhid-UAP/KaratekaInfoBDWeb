@@ -456,7 +456,7 @@ def get_all_position_choices():
 class Club(models.Model):
     name = models.CharField(max_length=50, unique=True)
     founded = models.DateField(blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, default='')
+    description = models.CharField(max_length=100, blank=True, null=True)
     logo_picture = models.ImageField(upload_to='club_logos', blank=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     phone_number = PhoneField(blank=True, null=True)
@@ -467,7 +467,7 @@ class Club(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=50, unique=True)
     founded = models.DateField(blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, default='')
+    description = models.CharField(max_length=100, blank=True, null=True)
     logo_picture = models.ImageField(upload_to='team_logos', blank=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     phone_number = PhoneField(blank=True, null=True)
@@ -507,13 +507,13 @@ class Athlete(models.Model):
         return self.name
 
 class Championship(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     start_date = models.DateField()
     description = models.CharField(max_length=100)
     logo_picture = models.ImageField(upload_to='championship_logos', blank=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 class ChampionshipStanding(models.Model):
     championship = models.ForeignKey(Championship, on_delete=models.CASCADE)
@@ -522,4 +522,4 @@ class ChampionshipStanding(models.Model):
     position = models.IntegerField(choices=get_all_position_choices())
 
     def __str__(self):
-        return self.championship.__str__() + ' Position ' + str(self.position)
+        return self.championship.__str__() + ' ' + self.category + ' Position ' + str(self.position)

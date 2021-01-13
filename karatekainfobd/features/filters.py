@@ -3,13 +3,14 @@ import django_filters
 from .models import Athlete
 
 class AthleteFilter(django_filters.FilterSet):
+    weight__gte = django_filters.NumberFilter(field_name='weight', lookup_expr='gte')
+    weight__lte = django_filters.NumberFilter(field_name='weight', lookup_expr='lte')
 
     class Meta:
         model = Athlete
         fields = [
             'name',
             'gender',
-            'weight',
             'club',
             'team',
             'individual_kata_event',
@@ -20,5 +21,7 @@ class AthleteFilter(django_filters.FilterSet):
             'team_kata_active',
             'team_kumite_event',
             'team_kumite_active',
+            'u21_kumite_event',
+            'u21_kumite_active',
             'active',
         ]

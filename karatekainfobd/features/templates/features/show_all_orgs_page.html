@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load features_extras %}
+
+{% block main_block %}
+
+{% for org in org_page_obj %}
+<div class="nav justify-content-center">
+    <div class="card" style="width: 35rem; margin-top: 20px;">
+        {% if org.logo_picture %}
+            <img src="{{org.logo_picture.url }}" class="card-img-top" width="120">
+        {% endif %}
+        <div class="card-body">
+            <h2>
+                <a href="{% url org_detail_url_name org.id %}">
+                    <p class="card-title">{{org.name}}</p>
+                </a>
+                <p class="font-weight-lighter">
+                    {% if org.description %}
+                        {{org.description}}
+                    {% endif %}
+                </p>
+                {% if org.founded %}
+                    <p class="font-weight-lighter">Founded: {{org.founded}}</p>
+                {% endif %}
+                {% if org.address %}
+                    <p class="font-weight-lighter">{{org.address}}</p>
+                {% endif %}
+            </h2>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="pagination nav justify-content-center">
+    <span class="step-links">
+        {% if org_page_obj.has_previous %}
+            <a href="{% relative_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+            <a href="{% relative_url org_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ org_page_obj.number }} of {{ org_page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if org_page_obj.has_next %}
+            <a href="{% relative_url org_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+            <a href="{% relative_url org_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

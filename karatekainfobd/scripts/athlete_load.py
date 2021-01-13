@@ -6,6 +6,8 @@ from decimal import Decimal
 
 from features.models import Athlete, Club, Team
 
+from features.utils import obj_or_none
+
 # https://django-extensions.readthedocs.io/en/latest/runscript.html
 
 # python3 manage.py runscript athlete_load
@@ -18,15 +20,22 @@ def run():
 
     # if file is not in the same directory as the scripts directory
     # then full path needs to be specified
-    fhand = open('athletes.csv')
+    fhand = open('Athletes.csv')
     reader = csv.reader(fhand)
     next(reader)  # Advance past the header
 
     for row in reader:
         print(row)
 
-        club, created = Club.objects.get_or_create(name=row[6])
-        team, created = Team.objects.get_or_create(name=row[7])
+        try:
+            club = Club.objects.get(name=row[6])
+        except:
+            club = obj_or_none(Club, row[6])
+
+        try:
+            team = Team.objects.get(name=row[7])
+        except:
+            team = obj_or_none(Team, row[7])
 
         name = row[0]
         gender = row[1]
@@ -72,6 +81,8 @@ def run():
             individual_kumite_active=individual_kumite_active,
             team_kata_event=team_kata_event,
             team_kata_active=team_kata_active,
+            team_kumite_event=team_kumite_event,
+            team_kumite_active=team_kumite_active,
             u21_kata_event=u21_kata_event,
             u21_kata_active=u21_kata_active,
             u21_kumite_event=u21_kumite_event,

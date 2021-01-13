@@ -18,7 +18,7 @@ def run():
 
     # if file is not in the same directory as the scripts directory
     # then full path needs to be specified
-    fhand = open('clubs.csv')
+    fhand = open('Clubs.csv')
     reader = csv.reader(fhand)
     next(reader)  # Advance past the header
 
@@ -34,10 +34,15 @@ def run():
         description = row[2]
         logo_picture = row[3]
 
+        address = row[4]
+        phone_number = row[5]
+
         club = Club(
             name=name,
             founded=founded,
             description=description,
-            logo_picture=logo_picture
+            logo_picture=logo_picture,
+            address=address,
+            phone_number=phone_number
         )
         club.save()
