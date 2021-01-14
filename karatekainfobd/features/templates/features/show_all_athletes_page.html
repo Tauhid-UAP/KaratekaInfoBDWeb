@@ -96,8 +96,12 @@
                 <p class="font-weight-lighter">Born: {{athlete.date_of_birth}}</p>
                 <p class="font-weight-lighter">Height: {{athlete.feet_height}} ft {{athlete.inch_height}} in</p>
                 <p class="font-weight-lighter">Weight: {{athlete.weight}} kg</p>
-                <p class="font-weight-lighter">Club: {{athlete.club.name}}</p>
-                <p class="font-weight-lighter">Team: {{athlete.team.name}}</p>
+                {% if athlete.club %}
+                    <p class="font-weight-lighter">Club: {{athlete.club}}</p>
+                {% endif %}
+                {% if athlete.team %}
+                    <p class="font-weight-lighter">Team: {{athlete.team}}</p>
+                {% endif %}
                 {% if athlete.individual_kata_event %}
                     <p class="font-weight-lighter">
                         {{athlete.individual_kata_event}}
