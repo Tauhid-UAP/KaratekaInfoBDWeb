@@ -10,7 +10,7 @@ colorama==0.4.3
 cycler==0.10.0
 decorator==4.4.2
 defusedxml==0.6.0
-Django==2.2
+Django==2.2.24
 django-address==0.2.5
 django-address-app==0.1.7
 django-extensions==3.1.0
